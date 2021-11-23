@@ -28,11 +28,11 @@ short_hedge <- ggplot(profits, aes(x=short_hedge)) +  xlab("Profits, Short Hedge
 short_hedge
 
 # save images - uncomment to run and overwrite files 
-# ggsave(crush_hedged, file = here("Images", "hist_crush_hedged.png"), dpi = 150)
-# ggsave(crush_nohedged, file = here("Images", "hist_crush_nohedged.png"), dpi = 150)
-# ggsave(basis_change, file = here("Images", "hist_basischange.png"), dpi = 150)
-# ggsave(long_corn, file = here("Images", "hist_long_corn.png"), dpi = 150)
-# ggsave(short_hedge, file = here("Images", "hist_short_hedge.png"), dpi = 150)
+# ggsave(crush_hedged, file = here("Images", "hist_crush_hedged.png"), dpi = 100)
+# ggsave(crush_nohedged, file = here("Images", "hist_crush_nohedged.png"), dpi = 100)
+# ggsave(basis_change, file = here("Images", "hist_basischange.png"), dpi = 100)
+# ggsave(long_corn, file = here("Images", "hist_long_corn.png"), dpi = 100)
+# ggsave(short_hedge, file = here("Images", "hist_short_hedge.png"), dpi = 100)
 
 crushH_percentile <- quantile(profits$crushH, probs = c(0.05,0.1,0.2,0.3,0.4,0.5))
 
