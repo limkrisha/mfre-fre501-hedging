@@ -1,0 +1,79 @@
+---
+title: "Module 2G: Hedging Commodity Price Risk"
+output:
+  bookdown::html_document2:
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+pacman::p_load(here, dplyr, ggplot2)
+```
+
+# Learning Outcomes
+
+By working on this module you should be able to 
+
+- Differentiate long and short positions in the market
+- Explain the price risk facing those long and short in the market
+- Describe a textbook example of a short and long hedge
+- Explain how different marketing scenarios use hedging as a price risk reduction tool ***?
+- Describe the Iowa corn and ethanol pricing data
+- Explain how profits are earned given different scenarios, with and without hedging
+
+# Overview of this Module
+
+# Long and Short Positions in the Spot Market
+
+In the spot market, a *long* position means you own unpriced commodity. You benefit if the spot price rises, and you lose if the spot price falls. An example of a 
+
+A *short* position means you borrowed the commodity and immediately sold it, or something equivalent. You must eventually purchase the commodity and repay your loan. You benefit if the spot price falls, and you lose if the spot price rises. 
+
+
+## Price Risk
+
+# Textbook example of a short and long hedge
+
+# Case Study: Corn and Ethanol in Iowa
+
+We now look at three distinct scenarios in Iowa for the years 2016-2021 to examine the degree to which hedging reduces price risk. 
+
+The [Mid Iowa Cooperative](https://www.midiowacoop.com/grains/cash-bids/) offers deferred delivery marketing contracts to local farmers. Figure \@ref(fig:beaman) below shows the cash bids when the contract is signed on November 20, 2021 and the months the delivery is allowed. The second row shows that the delivery is allowed anytime in January 2022. The -$0.25/bu basis is added to the Nov 20^th^ \$5.77/bu March futures price to get the price paid to farmer at \$5.52/bu, when the delivery is made. 
+
+The hedging period depends on the farmer's delivery date, which we assume to be a longer time period in the real world in than in our case studies. We also assume a full hedge
+
+```{r beaman, echo=FALSE, out.width="50%", fig.cap = "Beaman: Corn Cash Bids", fig.align='center'}
+knitr::include_graphics("Images/beaman_bids.png")
+```
+
+Figure \@ref(fig:usda)
+
+```{r usda, echo=FALSE, out.width="50%", fig.cap = "U.S. Export Sales as of November 11, 2021", fig.align='center'}
+knitr::include_graphics("Images/usda.png")
+```
+
+Figure \@ref(fig:exportbids)
+
+```{r exportbids, echo=FALSE, out.width="50%", fig.cap = "Selected Export Bids, FOB", fig.align='center'}
+knitr::include_graphics("Images/exportbids.png")
+```
+
+## Case Study: Scenario 1
+
+The first scenario we will look at is from the perspective of the Iowa Mid Cooperative who locks in a forward buy price with a local farmer. For example, referring to Figure \@ref(fig:beaman), if the farmer signs a deferred contract on November 20^th^ and agrees to deliver the price sometime in January 2022, the cooperative will pay the farmer \$5.52/bu when the farmer makes delivery, regardless of the spot price that day. The cooperative then sells the delivered grain at the current market spot price. This agreement exposes the Iowa Mid Cooperative to risk because of price fluctuations, as you can see from Figure \@ref(fig:cornspot). 
+
+```{r cornspot, echo=FALSE, out.width="30%", fig.cap = "Weekly Corn Spot Price, Iowa", fig.align='center'}
+knitr::include_graphics("Images/CornSpot.png")
+```
+
+The Iowa Mid Cooperative can do a short hedge to manage their risk exposure. 
+
+## Case Study: Scenario 2
+
+## Case Study: Scenario 3
+
+We now examine three scenarios 
+
+The weekly data is an aggregate for Iow, as reported in [here](https://www.extension.iastate.edu/agdm/energy/xls/agmrcethanolplantprices.xlsx). The spot price for corn was derived by adding the Iowa's corn basis, as reported by the USDA, to the prcie of the closest CME corn contract. The spot price of ethanol was derived by adding the Iowa's ethanol basis as reported by the USDA, to the price of the closest CME ethanol contract. The price of DDG (dried distillers grains) are based on feedlot payments. Of particular interest is the strength of the correlation between raw corn and DDG because both are highly substitutable as a livestock feed. The correlation between corn and DDG is approximately 0.75, which is relatively strong but still far from reflecting perfect substitutability. 
+
+In the first scenario, the cooperative locks in a forward buy price with the farmer. When the farmer delivers the corn in a months time, the cooperative sells it at hte current market spot price. Figure 
