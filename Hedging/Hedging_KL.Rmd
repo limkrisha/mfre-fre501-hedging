@@ -228,7 +228,7 @@ knitr::include_graphics("Images/hist_basischange.png")
 
 Here's the code if you want the two histogram and the overlay all side by side - Figure \@ref(fig:case1-side)
 
-```{r, case1-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Profits ($/bu)", fig.align='center'}
+```{r, case1-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Profits - Long Spot, Short Hedge, Overlay ($/bu)", fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
 knitr::include_graphics(c("Images/hist_long_corn_scaled.png", "Images/hist_short_corn_scaled.png", "Images/overlay_deferred.png"))
@@ -254,7 +254,7 @@ The weekly data is an aggregate for Iow, as reported in [here](https://www.exten
 In the first scenario, the cooperative locks in a forward buy price with the farmer. When the farmer delivers the corn in a months time, the cooperative sells it at the current market spot price. Figure 
 Figure \@ref(fig:figures-side) shows the spot prices of DDG, Ethanol, and Corn. 
 
-```{r, figures-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Spot Prices", fig.align = 'center'}
+```{r, figures-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Spot Prices - DDG, Ethanol, and Corn", fig.align = 'center'}
 
 par(mar = c(4, 4, .1, .1))
 knitr::include_graphics(c("Images/DDG.png", "Images/Ethanol.png", "Images/CornSpot.png"))
@@ -268,25 +268,25 @@ knitr::include_graphics("Images/Revenue_Cost.jpeg")
 
 Figure \@ref(fig:nohedge-cm)
 
-```{r nohedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge ($/bu)", fig.align='center'}
+```{r nohedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from TCM, No Hedge ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/hist_crush_nohedged_scaled.png")
 ```
 
 Figure \@ref(fig:hedge-cm)
 
-```{r hedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, Hedge ($/bu)", fig.align='center'}
+```{r hedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from TCM, Hedge ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/hist_crush_hedged_scaled.png")
 ```
 
 Figure \@ref(fig:overlay-cm) shows 
 
-```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
+```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from TCM, No Hedge and Hedged ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/overlay_scaled.png")
 ```
 
 Here's the code if you want the two histogram and the overlay all side by side - Figure \@ref(fig:case3-side)
 
-```{r, case3-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Profits ($/bu)", fig.align='center'}
+```{r, case3-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Deviation from TCM - No Hedge, Hedged, Overlay ($/bu)", fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
 knitr::include_graphics(c("Images/hist_crush_nohedged_scaled.png", "Images/hist_crush_hedged_scaled.png", "Images/overlay_scaled.png"))
@@ -294,11 +294,11 @@ knitr::include_graphics(c("Images/hist_crush_nohedged_scaled.png", "Images/hist_
 
 # Part B
 
-# Short Hedging Profits
+## Short Hedging Profits
 
 $(\tilde{P}_1 - P_0) + (F_0 - \tilde{F}_1)$
 
-# Short Hedge with Farm Delivery at Date 0
+## Short Hedge with Farm Delivery at Date 0
 
 Let $\tilde\omega_{0,1}$ be the carrying cost between dates 0 and 1, and let $\tilde\pi_{S}$ denote net short hedging profits for the cooperative. 
 
@@ -315,12 +315,83 @@ Figure \@ref(fig:graph-shorthedge) shows that when the market is in equilibrium,
 knitr::include_graphics("Images/graph_shorthedge.png")
 ```
 
+Since $E(B_1-B_0) = E(\omega_{0,1})$ we can conclude that $E(\hat\pi_S) = E(B_1 - B_0 - \omega_{0,1})$ 
 
-Figure \@ref(fig:graph-strongbasis) shows that expected hedging profits are lwer for the short hedger and higher for the long hedger if the initial basis is strong. 
+  - please check in the notes this is the first time you used $E(\hat\pi_S)$. Previously the notation you used is $E(\tilde\pi_S)$
+  
+## Short Hedge with Farm Delivery at Date T
+
+In this case the farmer will incur the carrying cost over the hedging period of $\tilde\omega_{0,1}$. 
+
+If $P_0$ is not adjusted then the carrying cost savings for the cooperative translate into positive profits for the cooperative.
+
+Competition may force the cooperative to set the contract price equal to $P_0 + E(\tilde\omega_{0,1})$ in which case the farmer's carrying cost is covered by the higher price, and the cooperative expects zero profits. 
+
+## Corn Exporter Long Hedge
+
+At date 0, an exporter forward sells corn at Price $P_0$ and hedges with a long futures position at price $F_0$. At date 1, the exporter purchases the corn at price $\tilde{P}_1$ and offsets with a long hedge at price $\tilde{F}_1$. Exporter expects the spot price to rise between dates 0 and 1 by an amount equal to the market's expected carrying cost, $E(\tilde\omega_{0,1})$. Exporter adds $E(\tilde\omega_{0,1})$ to $P_0$ to ensure it will break even on the transaction. 
+
+Profits for the long hedger equal
+
+$$\tilde\pi_L = P_0 + E(\tilde\omega_{0,1}) - \tilde{P}_1 + (\tilde{F}_1 - F_0) $$
+
+Rearranging this equation as
+
+$$\tilde\pi_L = -[\tilde{P}_1 - \tilde{F}_1 - (P_0 - F_0) - E(\tilde\omega_{0,1})] $$
+
+Notice that this equation can be rewritten as 
+
+$$\tilde\pi_L = -[\tilde{B}_1 - B_0 - E(\tilde\omega_{0,1})] $$ 
+Profits for the long hedger are equal to the profits for the short hedger but with the opposite sign.
+
+Note that $E(\tilde\pi_L) = 0$ since $E(\tilde{B}_1 - \tilde{B}_0) = E(\tilde\omega_{0,1})$ 
+
+## Hedging with a Strong Basis
+
+The equilibrium basis at date 0 is $E(L_T) - E(\tilde\omega_{0, T})$ where $E(L_T)$ is the expected location component of the basis at futures expiry at date T. 
+
+Suppose that due to a regional demand surge, the date 0 basis is equal to $-E(L_T) - E(\tilde\omega_{0, T}) + \delta$ -> the basis is strong compared to equlibrium
+
+The basis is expected to equal $-E(L_T)$ at date T
+
+These two results together imply the basis will increase at a rate which is slower than the equilibrium rate of increase. 
+
+The slower increase implies less strengthening of the basis over the hedging period -> Lower profits for short hedger and higher profits for long hedger. 
+
+Figure \@ref(fig:graph-strongbasis) shows that expected hedging profits are lower for the short hedger and higher for the long hedger if the initial basis is strong. 
 
 ```{r graph-strongbasis, echo=FALSE, out.width="50%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/graph_strongbasis.png")
 ```
+
+## Change in Basis After Hedge is Placed 
+
+## Hedging the Crush Margin: Simple Case
+
+The target crush margin is $M_0 = 2.8P^{E}_0 + 0.0085P_0^{D} - P_0^{C}$. 
+
+The actual crush margin is $\tilde{M}_1 = 2.8\tilde{P}^{E}_0 + 0.0085P_0^{D} - \tilde{P}_0^{C}$. 
+
+Let $\Delta_{C}$ be the deviation of the actual crush from the target crush.
+
+Let $\Delta_{C} = 2.8(\tilde{P}_1^E - P_0^E) - (\tilde{P}_1^C - P_0^C)$
+
+Let $\Delta$ be the deviation of the actual crush from the target crush inclusive of gains/losses in the futures market. 
+
+$$\Delta = 2.8(\tilde{P}_1^E - P_0^E) - (\tilde{P}_1^C - P_0^C) + (\tilde{F}_1^C - F_0^C) - 2.8(\tilde{F}_1^E - F_0^E)$$ 
+
+Rewrite as
+
+$$\Delta = 2.8[(\tilde{P}_1^E - \tilde{F}_1^E ) - (\tilde{P}_0^E - F_0^E)] - [(\tilde{P}_1^{C} - \tilde{F}_1^{C}) - (P_0^C - F_0^C)] $$ 
+
+The net deviation of the crush margin from the target is the difference in how the ethanol and corn basis changes over the hedging period. 
+
+## Review of Eight Quarter Model Results
+
+
+
+
+
 
 
 # Appendix - Simulations
