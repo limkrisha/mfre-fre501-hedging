@@ -145,6 +145,11 @@ In Figure \@ref(fig:overlay-deferred), we plot plot two profit histograms on one
 knitr::include_graphics("Images/overlay_deferred.png")
 ```
 
+Figure \@ref(fig:basis-change)
+
+```{r basis-change, echo=FALSE, out.width="30%", fig.cap = "Change in Basis over Hedging Period($/bu)", fig.align='center'}
+knitr::include_graphics("Images/hist_basischange.png")
+```
 ## Case Study: Scenario 2
 
 ## Case Study: Scenario 3
@@ -162,15 +167,27 @@ par(mar = c(4, 4, .1, .1))
 knitr::include_graphics(c("Images/DDG.png", "Images/Ethanol.png", "Images/CornSpot.png"))
 ```
 
-Figure \@ref(fig:revcost) shows the revenue and cost in ethanol production. The blue line represents the sale of ethanol and DDG, and the red line represent the purchase of corn. The gap between these two lines is called the *crush margin* if all pricing is on the same day. One can also trade on the crush margin. Read about the soybean crush [here](https://www.cmegroup.com/education/courses/introduction-to-agriculture/grains-oilseeds/understanding-soybean-crush.html) and check sobyean crush prices [here](https://www.barchart.com/futures/quotes/CS*0/futures-prices).
+Figure \@ref(fig:revcost) shows the revenue and cost in ethanol production. The blue line represents the sale of ethanol and DDG, and the red line represent the purchase of corn. The gap between these two lines is called the *crush margin* if all pricing is on the same day. One can also trade on the crush margin. **Read about the soybean crush [here](https://www.cmegroup.com/education/courses/introduction-to-agriculture/grains-oilseeds/understanding-soybean-crush.html) and check sobyean crush prices [here](https://www.barchart.com/futures/quotes/CS*0/futures-prices).**
 
-```{r revcost, echo=FALSE, out.width = "50%", fig.cap = "Profits, Long Spot and Short Hedge ($/bu)", fig.align='center'}
+```{r revcost, echo=FALSE, out.width = "50%", fig.cap = "Revenue and Cost in Ethanol Production", fig.align='center'}
 knitr::include_graphics("Images/Revenue_Cost.jpeg")
+```
+
+Figure \@ref(fig:nohedge-cm)
+
+```{r nohedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge ($/bu)($/bu)", fig.align='center'}
+knitr::include_graphics("Images/hist_crush_nohedged_scaled.png")
+```
+
+Figure \@ref(fig:hedge-cm)
+
+```{r hedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, Hedge ($/bu)", fig.align='center'}
+knitr::include_graphics("Images/hist_crush_hedged_scaled.png")
 ```
 
 Figure \@ref(fig:overlay-cm) shows 
 
-```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Profits, Long Spot and Short Hedge ($/bu)", fig.align='center'}
+```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/overlay_scaled.png")
 ```
 # Appendix - Simulations
