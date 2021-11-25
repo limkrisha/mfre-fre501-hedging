@@ -153,8 +153,26 @@ We now examine three scenarios
 
 The weekly data is an aggregate for Iow, as reported in [here](https://www.extension.iastate.edu/agdm/energy/xls/agmrcethanolplantprices.xlsx). The spot price for corn was derived by adding the Iowa's corn basis, as reported by the USDA, to the prcie of the closest CME corn contract. The spot price of ethanol was derived by adding the Iowa's ethanol basis as reported by the USDA, to the price of the closest CME ethanol contract. The price of DDG (dried distillers grains) are based on feedlot payments. Of particular interest is the strength of the correlation between raw corn and DDG because both are highly substitutable as a livestock feed. The correlation between corn and DDG is approximately 0.75, which is relatively strong but still far from reflecting perfect substitutability. 
 
-In the first scenario, the cooperative locks in a forward buy price with the farmer. When the farmer delivers the corn in a months time, the cooperative sells it at hte current market spot price. Figure 
+In the first scenario, the cooperative locks in a forward buy price with the farmer. When the farmer delivers the corn in a months time, the cooperative sells it at the current market spot price. Figure 
+Figure \@ref(fig:figures-side) shows the spot prices of DDG, Ethanol, and Corn. 
 
+```{r, figures-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Spot Prices"}
+
+par(mar = c(4, 4, .1, .1))
+knitr::include_graphics(c("Images/DDG.png", "Images/Ethanol.png", "Images/CornSpot.png"))
+```
+
+Figure \@ref(fig:revcost) shows the revenue and cost in ethanol production. The blue line represents the sale of ethanol and DDG, and the red line represent the purchase of corn. The gap between these two lines is called the *crush margin* if all pricing is on the same day. One can also trade on the crush margin. Read about the soybean crush [here](https://www.cmegroup.com/education/courses/introduction-to-agriculture/grains-oilseeds/understanding-soybean-crush.html) and check sobyean crush prices [here](https://www.barchart.com/futures/quotes/CS*0/futures-prices).
+
+```{r revcost, echo=FALSE, out.width = "50%", fig.cap = "Profits, Long Spot and Short Hedge ($/bu)", fig.align='center'}
+knitr::include_graphics("Images/Revenue_Cost.jpeg")
+```
+
+Figure \@ref(fig:overlay-cm) shows 
+
+```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Profits, Long Spot and Short Hedge ($/bu)", fig.align='center'}
+knitr::include_graphics("Images/overlay_scaled.png")
+```
 # Appendix - Simulations
 
 ```{r, eval = F}
