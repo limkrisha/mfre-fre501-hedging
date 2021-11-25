@@ -175,7 +175,7 @@ knitr::include_graphics("Images/Revenue_Cost.jpeg")
 
 Figure \@ref(fig:nohedge-cm)
 
-```{r nohedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge ($/bu)($/bu)", fig.align='center'}
+```{r nohedge-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/hist_crush_nohedged_scaled.png")
 ```
 
