@@ -23,39 +23,92 @@ By working on this module you should be able to
 
 # Overview of this Module
 
-# Long and Short Positions in the Spot Market
+Insert overview here
+
+## Long and Short Positions in the Spot Market
 
 In the spot market, a *long* position means you own unpriced commodity. You benefit if the spot price rises, and you lose if the spot price falls. An example of a 
 
 A *short* position means you borrowed the commodity and immediately sold it, or something equivalent. You must eventually purchase the commodity and repay your loan. You benefit if the spot price falls, and you lose if the spot price rises. 
 
-
 ## Price Risk
 
-# Textbook example of a short and long hedge
+Insert info here
+
+## Textbook example of a short and long hedge
+
+Figures \@ref(fig:text-shorthedge) and \@ref(fig:text-longhedge) are some [textbook](http://simpson.ca.uky.edu/files/cme-self_study_guide_to_futures_and_options.pdf) examples of short and long hedge.
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r text-shorthedge, echo=FALSE, fig.cap = "Short Hedge", fig.align='center', out.width = "80%"}
+knitr::include_graphics("Images/textbook_shorthedge.png")
+```
+:::
+
+::: {.column width="50%"}
+```{r text-longhedge, echo=FALSE, fig.cap = "Long Hedge", fig.align='center', out.width = "80%"}
+knitr::include_graphics("Images/textbook_longhedge.png")
+```
+:::
+
+::::
 
 # Case Study: Corn and Ethanol in Iowa
 
 We now look at three distinct scenarios in Iowa for the years 2016-2021 to examine the degree to which hedging reduces price risk. 
+<!-- This format is only if you want 3 columns so that the picture will be on the right and the text is on the left, and a small empty column in the middle. -->
 
-The [Mid Iowa Cooperative](https://www.midiowacoop.com/grains/cash-bids/) offers deferred delivery marketing contracts to local farmers. Figure \@ref(fig:beaman) below shows the cash bids when the contract is signed on November 20, 2021 and the months the delivery is allowed. The second row shows that the delivery is allowed anytime in January 2022. The -$0.25/bu basis is added to the Nov 20^th^ \$5.77/bu March futures price to get the price paid to farmer at \$5.52/bu, when the delivery is made. 
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+The [Mid Iowa Cooperative](https://www.midiowacoop.com/grains/cash-bids/) offers deferred delivery marketing contracts to local farmers. Figure \@ref(fig:beaman) on the right shows the cash bids when the contract is signed on November 20, 2021 and the months the delivery is allowed. The second row shows that the delivery is allowed anytime in January 2022. The -$0.25/bu basis is added to the Nov 20^th^ \$5.77/bu March futures price to get the price paid to farmer at \$5.52/bu, when the delivery is made.
+:::
 
-The hedging period depends on the farmer's delivery date, which we assume to be a longer time period in the real world in than in our case studies. We also assume a full hedge
+::: {.column width="5%"} 
+<!-- This is just an empty column -->
+:::
 
-```{r beaman, echo=FALSE, out.width="50%", fig.cap = "Beaman: Corn Cash Bids", fig.align='center'}
+::: {.column width="40%"} 
+```{r beaman, echo=FALSE, fig.cap = "Corn Cash Bid, Beaman", fig.align='center'}
 knitr::include_graphics("Images/beaman_bids.png")
 ```
+:::
+::::
 
-Figure \@ref(fig:usda)
+# Forward Export Sales
 
-```{r usda, echo=FALSE, out.width="50%", fig.cap = "U.S. Export Sales as of November 11, 2021", fig.align='center'}
-knitr::include_graphics("Images/usda.png")
-```
+<!-- Option 1 for side by side. Different figure number but I can't figure out how to put Figure 3 in the middle of the box.  -->
 
-Figure \@ref(fig:exportbids)
+<!-- Figure \@ref(fig:usda) shows the aggregate export sales of US. corn as of November 11, 2021. Much of the "new sales" for the week of November 11, 2021 are forward sales by firms locking in a sales price; in the coming weeks, these firms will purchase the corn and initiate the delivery process. -->
 
-```{r exportbids, echo=FALSE, out.width="50%", fig.cap = "Selected Export Bids, FOB", fig.align='center'}
-knitr::include_graphics("Images/exportbids.png")
+<!-- Figure \@ref(fig:exportbids) shows a graph of U.S. corn export bids relative to those of other countries. Data sourced [here](https://apps.fas.usda.gov/psdonline/circulars/grain.pdf). Exporters of U.S. corn must aggressively use forward sales to be competitive. These forward sales put exporters in a short position in the spot market. -->
+
+<!-- :::: {.columns} -->
+
+<!-- ::: {.column width="50%"} -->
+<!-- ```{r usda, echo=FALSE, out.width="90%", fig.cap = "U.S. Export Sales as of November 11, 2021", fig.align='center'} -->
+<!-- knitr::include_graphics("Images/usda.png") -->
+<!-- ``` -->
+<!-- ::: -->
+
+<!-- ::: {.column width="50%"} -->
+
+<!-- ```{r exportbids, echo=FALSE, out.width="80%", fig.cap = "Selected Export Bids, FOB", fig.align='center'} -->
+<!-- knitr::include_graphics("Images/exportbids.png") -->
+<!-- ``` -->
+
+<!-- ::: -->
+
+<!-- :::: -->
+
+The left panel of Figure \@ref(fig:figures-side2) shows the aggregate export sales of US. corn as of November 11, 2021. Much of the "new sales" for the week of November 11, 2021 are forward sales by firms locking in a sales price; in the coming weeks, these firms will purchase the corn and initiate the delivery process. The right panel of Figure \@ref(fig:figures-side2) shows a graph of U.S. corn export bids relative to those of other countries. Data sourced [here](https://apps.fas.usda.gov/psdonline/circulars/grain.pdf). Exporters of U.S. corn must aggressively use forward sales to be competitive. These forward sales put exporters in a short position in the spot market.
+
+<!-- Option 2 (for side by side) but only 1 caption -->
+
+```{r, figures-side2, fig.show="hold", out.width="50%", echo = F, fig.cap = "Forward Export Sales"}
+
+par(mar = c(4, 4, .1, .1))
+knitr::include_graphics(c("Images/usda.png", "Images/exportbids.png"))
 ```
 
 ## Case Study: Scenario 1
@@ -108,8 +161,24 @@ knitr::include_graphics("Images/hist_long_corn_scaled.png")
 The price risk facing the cooperative who is long in the Iowa corn spot market for an average duration of `r round(mean(profits$date_diff/7), 2)` weeks is reflected by the left tail of the histogram. The following percentiles quantify this risk.
 
 ```{r, echo = F,}
-long_spot_percentile <- quantile(profits$long_corn, probs = c(0.05,0.1,0.2,0.3,0.4,0.5))
-long_spot_percentile
+# unname() removes the 5%, 10%, ..., 50%
+# then i create a text vector containing these cutoffs
+# so I can plot using kbl() since it will only plot horizontally if there are two rows
+# if not, first col is the cutoffs, and second col is the values
+
+long_spot_percentile <- round(quantile(profits$long_corn, probs = c(0.05,0.1,0.2,0.3,0.4,0.5)), 2)
+long_spot_percentile <- unname(long_spot_percentile)
+
+text <- c("5%", "10%", "20%", "30%", "40%", "50%")
+
+perc1 <- rbind(text, long_spot_percentile)
+rownames(perc1) <- c("", "Long Spot")
+  
+perc1 %>% 
+  kbl() %>% 
+  kable_styling() %>%
+  row_spec(1, bold = TRUE) %>%  # bold first row since I'm manually creating this col name
+  kable_paper("hover", full_width = F) # makes the table tighter, i.e. not occupy full row
 ```
 
 We can interpret the percentiles as follows. The cooperative faces a 5% probability of losing more than \$0.56/bu. The cooperative faces a 10% probability of losing between \$0.18 and \$0.38/bu. The cooperative earns around \$0.04/bu on average but there is a sizeable price risk. 
@@ -128,15 +197,17 @@ knitr::include_graphics("Images/hist_short_corn_scaled.png")
 You can see that Figure \@ref(fig:short-hedge) has much thinner tails compared to Figure \@ref(fig:long-corn). The thinning of the left tail implies significantly lower risk. A comparison of the percentiles quantifies the difference in risk. The short hedge has signfiicantly reduced price risk in the left tail of the distribution. 
 
 ```{r, echo = F}
-shorthedge_percentile <- quantile(profits$short_hedge, probs = c(0.05,0.1,0.2,0.3,0.4,0.5))
-perc <- rbind(long_spot_percentile, shorthedge_percentile)
+shorthedge_percentile <- round(quantile(profits$short_hedge, probs = c(0.05,0.1,0.2,0.3,0.4,0.5)), 2)
+shorthedge_percentile <- unname(shorthedge_percentile)
 
-# rename rows
-rownames(perc) <- c("Long Spot", "Short Hedge")
+perc2 <- rbind(text, long_spot_percentile, shorthedge_percentile)
+rownames(perc2) <- c("", "Long Spot", "Short Hedge")
 
-perc %>%
+perc2 %>%
   kbl() %>%
-  kable_styling()
+  kable_styling() %>%
+  row_spec(1, bold = TRUE) %>%  # bold first row since I'm manually creating this col name
+  kable_paper("hover", full_width = F) # makes the table tighter, i.e. not occupy full row
 ```
 
 In Figure \@ref(fig:overlay-deferred), we plot plot two profit histograms on one chart to better see the reduction in price risk. The red bars represent the profit distribution when the cooperative takes a long spot position. The blue bars represent the profit distribution when the cooperative tatkes a short hedge. The purple bars are the overlap between the profits in the long spot and short hedge positions. We can see that the the blue bars (short hedge) are lower than the red bars (long spot) at the tails, meaning there is less risk. Note that the hedge does not completely eliminate the risk. 
@@ -150,7 +221,25 @@ Figure \@ref(fig:basis-change)
 ```{r basis-change, echo=FALSE, out.width="30%", fig.cap = "Change in Basis over Hedging Period($/bu)", fig.align='center'}
 knitr::include_graphics("Images/hist_basischange.png")
 ```
+
+Here's the code if you want the two histogram and the overlay all side by side - Figure \@ref(fig:case1-side)
+
+```{r, case1-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Profits ($/bu)", fig.align='center'}
+
+par(mar = c(4, 4, .1, .1))
+knitr::include_graphics(c("Images/hist_long_corn_scaled.png", "Images/hist_short_corn_scaled.png", "Images/overlay_deferred.png"))
+```
+
 ## Case Study: Scenario 2
+
+Optimal Hedging Ratio 
+
+High Correlation but Different Std Dev
+
+```{r hypothetical, echo=FALSE, out.width = "50%", fig.cap = "Hypothetical Spot, Futures, Basis", fig.align='center'}
+knitr::include_graphics("Images/hypothetical.png")
+```
+
 
 ## Case Study: Scenario 3
 
@@ -161,7 +250,7 @@ The weekly data is an aggregate for Iow, as reported in [here](https://www.exten
 In the first scenario, the cooperative locks in a forward buy price with the farmer. When the farmer delivers the corn in a months time, the cooperative sells it at the current market spot price. Figure 
 Figure \@ref(fig:figures-side) shows the spot prices of DDG, Ethanol, and Corn. 
 
-```{r, figures-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Spot Prices"}
+```{r, figures-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Spot Prices", fig.align = 'center'}
 
 par(mar = c(4, 4, .1, .1))
 knitr::include_graphics(c("Images/DDG.png", "Images/Ethanol.png", "Images/CornSpot.png"))
@@ -190,6 +279,46 @@ Figure \@ref(fig:overlay-cm) shows
 ```{r overlay-cm, echo=FALSE, out.width="30%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
 knitr::include_graphics("Images/overlay_scaled.png")
 ```
+
+Here's the code if you want the two histogram and the overlay all side by side - Figure \@ref(fig:case3-side)
+
+```{r, case3-side, fig.show="hold", out.width="30%", echo = F, fig.cap = "Profits ($/bu)", fig.align='center'}
+
+par(mar = c(4, 4, .1, .1))
+knitr::include_graphics(c("Images/hist_crush_nohedged_scaled.png", "Images/hist_crush_hedged_scaled.png", "Images/overlay_scaled.png"))
+```
+
+# Part B
+
+# Short Hedging Profits
+
+$(\tilde{P}_1 - P_0) + (F_0 - \tilde{F}_1)$
+
+# Short Hedge with Farm Delivery at Date 0
+
+Let $\tilde\omega_{0,1}$ be the carrying cost between dates 0 and 1, and let $\tilde\pi_{S}$ denote net short hedging profits for the cooperative. 
+
+$$\tilde\pi_{S} = (\tilde{P}_1 - P_0) + (F_0 - \tilde{F}_1) - \tilde\omega_{0,1}$$
+
+Rearranging the equation above, we get 
+
+$$\tilde\pi_{S} = (\tilde{P}_1 - \tilde{F}_1) - (P_0 - F_0) - \tilde\omega_{0,1}$$
+We can rewrite the above equation as $\tilde\pi_{S} = \tilde{B}_1 - B_0 - \tilde\omega_{0,1}$
+
+Figure \@ref(fig:graph-shorthedge) shows that when the market is in equilibrium, the short hedger expects zero profits from the hedge. 
+
+```{r graph-shorthedge, echo=FALSE, out.width="50%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
+knitr::include_graphics("Images/graph_shorthedge.png")
+```
+
+
+Figure \@ref(fig:graph-strongbasis) shows that expected hedging profits are lwer for the short hedger and higher for the long hedger if the initial basis is strong. 
+
+```{r graph-strongbasis, echo=FALSE, out.width="50%", fig.cap = "Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)", fig.align='center'}
+knitr::include_graphics("Images/graph_strongbasis.png")
+```
+
+
 # Appendix - Simulations
 
 ```{r, eval = F}
