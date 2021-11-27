@@ -5,10 +5,6 @@ output:
     number_sections: false
 ---
 
-div.main-container {
-  max-width: 1800px !important;
-}
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 pacman::p_load(here, dplyr, ggplot2, lubridate, kableExtra)
@@ -388,10 +384,57 @@ The net deviation of the crush margin from the target is the difference in how t
 
 ## Review of Eight Quarter Model Results
 
+In [Module 2D](https://vercammen.github.io/module2d.html), we introduced a price matrix that comes from 5000 sets of simulated spot and futures prices from an econometrics analysis of the USDA crop production and WASDE monthly forecasts. The top row is the base case set of equilibrium prices for Q1. The second row is the new set of prices after the revised forecasts arrive and the model is resolved for a new set of prices. The $i^{th}$ column shows how prices for that particular time period are updated given the revised forecast. (The matrix below appears in p.20 of your November 20 lecture slides.) We use this matrix to help us analyze how a change in USDA forecasted demand for Q8 stocks affects short and long hedging profits. 
+
+```{r}
+prices <- readRDS(here("Data", "prices_8.RDS"))
+prices
+```
+Recall that the prices on the first row are the base case (non-stochastic) prices. The elements on the diagonal are spot prices and prices to the right of the diagonal are futures prices. One contract expires each quarter. This means that in the top row, the price in the pQ1 column (i.e., `r round(prices[1,1],3)`) minus the price in the pQ7 column (i.e., `r round(prices[1, 7], 3)`) is the basis for a Q7 contract when in Q1. So, when the demand forecast did not change, then moving through time, the spot prices would equal the values in the top row. 
+
+The vector below shows the saw toothed seasonal basis with base case calculation.
+
+```{r}
+s_basis <- prices[1,1:7] - prices[1,7]
+s_basis
+```
+
+```{r, echo = F}
+# same as this
+# basis7_ns <- c()  #created an empty data frame
+# basis7_ns[1] <- prices[1,c("pQ1")]-prices[1,c("pQ7")] #for row 1, row 1 col PQ1 - row 1 col PQ7 
+# basis7_ns[2] <- prices[1,c("pQ2")]-prices[1,c("pQ7")] #for row 2, row 1 col PQ1 - row 1 col PQ7 
+# basis7_ns[3] <- prices[1,c("pQ3")]-prices[1,c("pQ7")]
+# basis7_ns[4] <- prices[1,c("pQ4")]-prices[1,c("pQ7")]
+# basis7_ns[5] <- prices[1,c("pQ5")]-prices[1,c("pQ7")]
+# basis7_ns[6] <- prices[1,c("pQ6")]-prices[1,c("pQ7")]
+# basis7_ns[7] <- prices[1,c("pQ7")]-prices[1,c("pQ7")]
+# print(round(basis7_ns, 5))
+```
 
 
+Suppose you placed the hedge in Q2 and lifted the hedge in Q4. The short hedging profits equal Q4 minus Q2 basis, or, `r round(s_basis[4],3)` - (`r round(s_basis[2],2)`) = 0.01. This means that you must anticipate the basis to change by 0.01 due to seasonality alone. 
 
+<!-- I manually inputted the value of the basis because R will calculate the profit to be 0.03. It is only 0.01 based on the rounding.  -->
 
+Now let's calculate the difference between actual and seasonal basis. The basis net of the seasonal saw tooth is shown in the vector below. The first value can be calculated as `r prices[1,1]` - `r prices[1,7]` - `r s_basis[1]`. The second value can be calculated as `r prices[2,2]` - `r `prices[2,7]` - `r s_basis[2]`, and so on. The difference between the `s_basis` and `net_basis` is the leftover basis or the basis that was due to the shock. 
+
+```{r}
+# both methods are the same 
+# rounding makes the answers different from the slides
+net_basis <- diag(prices[1:7,]) -  prices[1:7,7] - s_basis
+net_basis
+
+net_basis_manual <- c()
+net_basis_manual[1] <- prices[1,1] - prices[1,7] - s_basis[1]
+net_basis_manual[2] <- prices[2,2] - prices[2,7] - s_basis[2]
+net_basis_manual[3] <- prices[3,3] - prices[3,7] - s_basis[3]
+net_basis_manual[4] <- prices[4,4] - prices[4,7] - s_basis[4]
+net_basis_manual[5] <- prices[5,5] - prices[5,7] - s_basis[5]
+net_basis_manual[6] <- prices[6,6] - prices[6,7] - s_basis[6]
+net_basis_manual[7] <- prices[7,7] - prices[7,7] - s_basis[7]
+print(round(net_basis_manual, 5))
+```
 
 
 # Appendix - Simulations

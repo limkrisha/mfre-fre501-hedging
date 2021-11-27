@@ -170,9 +170,6 @@ pre code {
 </div>
 
 
-<p>div.main-container {
-max-width: 1800px !important;
-}</p>
 <div id="learning-outcomes" class="section level1">
 <h1>Learning Outcomes</h1>
 <p>By working on this module you should be able to</p>
@@ -582,6 +579,47 @@ Figure 19: Deviation from Target Crush Margin, No Hedge and Hedged ($/bu)
 </div>
 <div id="review-of-eight-quarter-model-results" class="section level2">
 <h2>Review of Eight Quarter Model Results</h2>
+<p>In <a href="https://vercammen.github.io/module2d.html">Module 2D</a>, we introduced a price matrix that comes from 5000 sets of simulated spot and futures prices from an econometrics analysis of the USDA crop production and WASDE monthly forecasts. The top row is the base case set of equilibrium prices for Q1. The second row is the new set of prices after the revised forecasts arrive and the model is resolved for a new set of prices. The <span class="math inline">\(i^{th}\)</span> column shows how prices for that particular time period are updated given the revised forecast. (The matrix below appears in p.20 of your November 20 lecture slides.) We use this matrix to help us analyze how a change in USDA forecasted demand for Q8 stocks affects short and long hedging profits.</p>
+<pre class="r"><code>prices &lt;- readRDS(here(&quot;Data&quot;, &quot;prices_8.RDS&quot;))
+prices</code></pre>
+<pre><code>##           pQ1      pQ2      pQ3      pQ4      pQ5       pQ6      pQ7       pQ8
+## [1,] 3.490479 3.653214 3.708320 3.656269 3.496614 3.6592973 3.714403 3.6624041
+## [2,]       NA 1.654043 1.692013 1.605544 1.393893 1.5875896 1.655951 1.5995640
+## [3,]       NA       NA 1.904201 1.819550 1.611552 1.8115652 1.888163 1.8420023
+## [4,]       NA       NA       NA 1.345151 1.133087 1.3388094 1.417064 1.3685229
+## [5,]       NA       NA       NA       NA 1.021511 1.2184257 1.286842 1.2273447
+## [6,]       NA       NA       NA       NA       NA 0.9030087 0.968721 0.9037938
+## [7,]       NA       NA       NA       NA       NA        NA 1.098349 1.0345325
+## [8,]       NA       NA       NA       NA       NA        NA       NA 1.5031297</code></pre>
+<p>Recall that the prices on the first row are the base case (non-stochastic) prices. The elements on the diagonal are spot prices and prices to the right of the diagonal are futures prices. One contract expires each quarter. This means that in the top row, the price in the pQ1 column (i.e., 3.49) minus the price in the pQ7 column (i.e., 3.714) is the basis for a Q7 contract when in Q1. So, when the demand forecast did not change, then moving through time, the spot prices would equal the values in the top row.</p>
+<p>The vector below shows the saw toothed seasonal basis with base case calculation.</p>
+<pre class="r"><code>s_basis &lt;- prices[1,1:7] - prices[1,7]
+s_basis</code></pre>
+<pre><code>##          pQ1          pQ2          pQ3          pQ4          pQ5          pQ6 
+## -0.223924740 -0.061189210 -0.006083273 -0.058134593 -0.217789325 -0.055105937 
+##          pQ7 
+##  0.000000000</code></pre>
+<p>Suppose you placed the hedge in Q2 and lifted the hedge in Q4. The short hedging profits equal Q4 minus Q2 basis, or, -0.058 - (-0.06) = 0.01. This means that you must anticipate the basis to change by 0.01 due to seasonality alone.</p>
+<!-- I manually inputted the value of the basis because R will calculate the profit to be 0.03. It is only 0.01 based on the rounding.  -->
+<p>Now let’s calculate the difference between actual and seasonal basis. The basis net of the seasonal saw tooth is shown in the vector below. The first value can be calculated as 3.4904785 - 3.7144033 - -0.2239247. The second value can be calculated as 1.6540432 - <code>r</code>prices[2,7]<code>- -0.0611892, and so on. The difference between the</code>s_basis<code>and</code>net_basis` is the leftover basis or the basis that was due to the shock.</p>
+<pre class="r"><code># both methods are the same 
+# rounding makes the answers different from the slides
+net_basis &lt;- diag(prices[1:7,]) -  prices[1:7,7] - s_basis
+net_basis</code></pre>
+<pre><code>##         pQ1         pQ2         pQ3         pQ4         pQ5         pQ6 
+##  0.00000000  0.05928115  0.02212103 -0.01377885 -0.04754170 -0.01060640 
+##         pQ7 
+##  0.00000000</code></pre>
+<pre class="r"><code>net_basis_manual &lt;- c()
+net_basis_manual[1] &lt;- prices[1,1] - prices[1,7] - s_basis[1]
+net_basis_manual[2] &lt;- prices[2,2] - prices[2,7] - s_basis[2]
+net_basis_manual[3] &lt;- prices[3,3] - prices[3,7] - s_basis[3]
+net_basis_manual[4] &lt;- prices[4,4] - prices[4,7] - s_basis[4]
+net_basis_manual[5] &lt;- prices[5,5] - prices[5,7] - s_basis[5]
+net_basis_manual[6] &lt;- prices[6,6] - prices[6,7] - s_basis[6]
+net_basis_manual[7] &lt;- prices[7,7] - prices[7,7] - s_basis[7]
+print(round(net_basis_manual, 5))</code></pre>
+<pre><code>## [1]  0.00000  0.05928  0.02212 -0.01378 -0.04754 -0.01061  0.00000</code></pre>
 </div>
 </div>
 <div id="appendix---simulations" class="section level1">
